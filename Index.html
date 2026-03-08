@@ -1,1 +1,782 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leky Modz Soft • Inovação Digital</title>
+    <!-- Fonts e Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* RESET E VARIÁVEIS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary: #4facfe;
+            --primary-dark: #0088cc;
+            --secondary: #00f2fe;
+            --accent: #9d4eff;
+            --dark: #0a0e1a;
+            --dark-light: #151e2f;
+            --glass: rgba(20, 30, 50, 0.6);
+            --glass-border: rgba(79, 172, 254, 0.2);
+            --text: #e0e0e0;
+            --text-light: #b0b8d0;
+            --gradient-1: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-2: linear-gradient(135deg, #9d4eff 0%, #4facfe 100%);
+            --shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+            --shadow-glow: 0 0 30px rgba(79, 172, 254, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* BACKGROUND ANIMADO (CIRCUITOS) */
+        #circuit-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        /* HEADER */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            background: rgba(10, 15, 25, 0.7);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: 0.4s;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-wrapper img {
+            height: 60px;
+            width: auto;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(79, 172, 254, 0.6);
+            transition: 0.3s;
+        }
+
+        .logo-wrapper img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px var(--primary);
+        }
+
+        .logo-wrapper h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            padding-bottom: 5px;
+            transition: 0.3s;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* MAIN */
+        main {
+            margin-top: 100px;
+            padding: 0 5% 50px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 85vh;
+            gap: 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            flex: 1;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content .badge {
+            display: inline-block;
+            background: rgba(79, 172, 254, 0.15);
+            border: 1px solid var(--primary);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .hero-content h2 {
+            font-size: 4.2rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .hero-content h2 span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .hero-content h2 span::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 30%;
+            bottom: 5px;
+            left: 0;
+            background: rgba(79, 172, 254, 0.2);
+            z-index: -1;
+            filter: blur(8px);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #25D366;
+            color: #fff;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-whatsapp::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-whatsapp:hover::before {
+            left: 100%;
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 40px rgba(37, 211, 102, 0.5);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: #fff;
+            padding: 1rem 2.2rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            box-shadow: 0 0 30px var(--primary);
+        }
+
+        .hero-image {
+            flex: 1;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 30px;
+            box-shadow: var(--shadow), var(--shadow-glow);
+            transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);
+            transition: 0.5s;
+        }
+
+        .hero-image img:hover {
+            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg) scale(1.02);
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(79,172,254,0.3) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        /* SEÇÃO SERVIÇOS */
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            font-size: 1.2rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin: 4rem 0;
+        }
+
+        .service-card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 2.5rem 2rem;
+            border-radius: 30px;
+            text-align: center;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-2);
+            opacity: 0;
+            z-index: -1;
+            transition: 0.4s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: transparent;
+        }
+
+        .service-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .service-card i {
+            font-size: 3.5rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+        }
+
+        /* SEÇÃO SOBRE */
+        .about {
+            display: flex;
+            gap: 4rem;
+            margin: 6rem 0;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .stats-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-border);
+            padding: 2rem 1rem;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(8px);
+            transition: 0.3s;
+        }
+
+        .stat-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(79,172,254,0.2);
+        }
+
+        .stat-item .number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .stat-item .label {
+            color: var(--text-light);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* SEÇÃO CONTATO */
+        .contact-premium {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 4rem 3rem;
+            margin: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-premium::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 140%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(79,172,254,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .contact-premium h3 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .contact-premium p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            position: relative;
+        }
+
+        .contact-premium .btn-whatsapp {
+            font-size: 1.8rem;
+            padding: 1.5rem 4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .phone-big {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        /* FOOTER */
+        footer {
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--glass-border);
+            padding: 2rem 5%;
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* BOTÃO WHATSAPP FLUTUANTE */
+        .floating-wa {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: #fff;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 30px rgba(37,211,102,0.4);
+            z-index: 1000;
+            transition: 0.3s;
+            animation: pulse-wa 2s infinite;
+        }
+
+        .floating-wa:hover {
+            transform: scale(1.1);
+            background: #128C7E;
+        }
+
+        @keyframes pulse-wa {
+            0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(37,211,102,0); }
+            100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+        }
+
+        /* ANIMAÇÕES */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 992px) {
+            .hero { flex-direction: column; text-align: center; }
+            .hero-content h2 { font-size: 3rem; }
+            .hero-buttons { justify-content: center; }
+            .about { flex-direction: column; }
+            .contact-premium h3 { font-size: 2.2rem; }
+            .phone-big { font-size: 1.8rem; }
+            nav ul { gap: 1.2rem; }
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 1rem; }
+            .hero-content h2 { font-size: 2.5rem; }
+            .btn-whatsapp { font-size: 1.1rem; padding: 0.8rem 1.8rem; }
+            .floating-wa { width: 55px; height: 55px; font-size: 2rem; bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Canvas para background de circuitos (opcional) -->
+    <canvas id="circuit-bg"></canvas>
+
+    <header>
+        <div class="logo-wrapper">
+            <!-- Substitua '1000026044.png' pelo caminho correto da sua logo -->
+            <img src="1000026044.png" alt="Leky Modz Soft">
+            <h1>Leky Modz Soft</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <span class="badge"><i class="fas fa-crown"></i> Excelência em Tecnologia</span>
+                <h2>Inovação <span>digital</span> que<br>transforma negócios</h2>
+                <p>Na Leky Modz Soft, desenvolvemos soluções sob medida que unem criatividade, performance e segurança. Seu próximo grande projeto começa aqui.</p>
+                <div class="hero-buttons">
+                    <a href="https://wa.me/5534997973878?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Leky%20Modz%20Soft." class="btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Fale conosco
+                    </a>
+                    <a href="#servicos" class="btn-outline">Conheça soluções <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div style="margin-top: 2rem; display: flex; gap: 2rem; color: var(--text-light);">
+                    <span><i class="fas fa-check-circle" style="color: var(--primary);"></i> +50 projetos</span>
+                    <span><i class="fas fa-check-circle" style="color: var(--primary);"></i> 5+ anos</span>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tecnologia">
+            </div>
+        </section>
+
+        <!-- Serviços -->
+        <section id="servicos">
+            <h2 class="section-title">Nossas especialidades</h2>
+            <p class="section-subtitle">Da concepção à implementação, oferecemos soluções completas em desenvolvimento de software e consultoria.</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Dev. Sob Medida</h3>
+                    <p>Sistemas web, desktop e mobile personalizados para suas necessidades.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Aplicativos</h3>
+                    <p>Apps nativos e híbridos com foco em UX e alta performance.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Cloud & Infra</h3>
+                    <p>Arquitetura em nuvem, escalabilidade e monitoramento 24/7.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>Automação</h3>
+                    <p>Bots e automações para otimizar processos repetitivos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sobre -->
+        <section id="sobre" class="about">
+            <div class="about-text">
+                <h3>Sobre a Leky Modz Soft</h3>
+                <p>Somos uma equipe multidisciplinar de engenheiros de software, designers e especialistas em inovação. Nossa missão é criar soluções tecnológicas que realmente façam a diferença no dia a dia das empresas.</p>
+                <p>Com mais de 5 anos de mercado, acumulamos cases de sucesso em diversos segmentos, sempre prezando pela qualidade, transparência e relacionamento duradouro com nossos clientes.</p>
+                <p>Acreditamos que a tecnologia é uma ferramenta poderosa para simplificar processos e abrir novas possibilidades. Por isso, cada projeto é tratado com dedicação exclusiva.</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="number">+50</div>
+                    <div class="label">Projetos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">+30</div>
+                    <div class="label">Clientes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">5+</div>
+                    <div class="label">Anos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">98%</div>
+                    <div class="label">Satisfação</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contato Premium -->
+        <section id="contato" class="contact-premium">
+            <h3>Vamos construir algo incrível?</h3>
+            <p>Entre em contato agora mesmo e converse com nossa equipe. Respondemos em poucos minutos.</p>
+            <a href="https://wa.me/5534997973878?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." class="btn-whatsapp" target="_blank">
+                <i class="fab fa-whatsapp"></i> Iniciar conversa
+            </a>
+            <div class="phone-big">
+                <i class="fab fa-whatsapp"></i> 34 99797-3878
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Leky Modz Soft. Todos os direitos reservados.</p>
+        <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#servicos">Serviços</a>
+            <a href="#sobre">Sobre</a>
+            <a href="#contato">Contato</a>
+            <a href="https://wa.me/5534997973878">WhatsApp</a>
+        </div>
+        <p>Desenvolvido com <i class="fas fa-heart" style="color: #4facfe;"></i> pela equipe Leky Modz Soft</p>
+    </footer>
+
+    <!-- Botão flutuante WhatsApp -->
+    <a href="https://wa.me/5534997973878?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20informações." class="floating-wa" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Pequeno script para efeito de circuitos (opcional) -->
+    <script>
+        // Canvas de fundo estilo circuitos
+        const canvas = document.getElementById('circuit-bg');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        function drawCircuits() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, width, height);
+            ctx.strokeStyle = '#4facfe';
+            ctx.lineWidth = 0.8;
+            ctx.globalAlpha = 0.2;
+
+            for (let i = 0; i < 30; i++) {
+                let startX = Math.random() * width;
+                let startY = Math.random() * height;
+                let points = [];
+                for (let j = 0; j < 5; j++) {
+                    points.push({
+                        x: startX + (Math.random() - 0.5) * 200,
+                        y: startY + (Math.random() - 0.5) * 200
+                    });
+                }
+                ctx.beginPath();
+                ctx.moveTo(points[0].x, points[0].y);
+                for (let k = 1; k < points.length; k++) {
+                    ctx.lineTo(points[k].x, points[k].y);
+                }
+                ctx.stroke();
+            }
+            requestAnimationFrame(drawCircuits);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        drawCircuits();
+
+        // Smooth scroll para links internos
+        document.querySelectorAll('nav a, .btn-outline').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
