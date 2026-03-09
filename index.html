@@ -38,6 +38,88 @@
             overflow-x: hidden;
         }
 
+        /* PRELOADER */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .preloader-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4) blur(2px);
+        }
+        .preloader-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #fff;
+            max-width: 600px;
+            padding: 20px;
+        }
+        .preloader-content h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, var(--primary), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px var(--primary);
+        }
+        .preloader-content p {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--text-dim);
+            border-right: 2px solid var(--primary);
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 3s steps(40) forwards, blink 0.75s step-end infinite;
+            margin: 0 auto;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--primary); }
+        }
+        .loader-spinner {
+            margin-top: 2rem;
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(0,240,255,0.2);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            box-shadow: 0 0 30px var(--primary);
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* PARTICLE CANVAS BACKGROUND */
         #particle-canvas {
             position: fixed;
@@ -993,6 +1075,18 @@
     </style>
 </head>
 <body>
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <video class="preloader-video" autoplay muted loop playsinline>
+            <source src="1770264063242.mp4" type="video/mp4">
+        </video>
+        <div class="preloader-content">
+            <h2>Leky Modz Soft</h2>
+            <p>Aguarde, estamos carregando todas as informações...</p>
+            <div class="loader-spinner"></div>
+        </div>
+    </div>
+
     <canvas id="particle-canvas"></canvas>
 
     <header>
@@ -1220,6 +1314,12 @@
     </a>
 
     <script>
+        // PRELOADER: esconder após carregamento completo
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            preloader.classList.add('hidden');
+        });
+
         // Mobile menu
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
