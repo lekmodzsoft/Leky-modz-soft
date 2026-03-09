@@ -1314,11 +1314,28 @@
     </a>
 
     <script>
-        // PRELOADER: esconder após carregamento completo
-        window.addEventListener('load', function() {
+        // PRELOADER: garantir no mínimo 8 segundos
+        (function() {
             const preloader = document.getElementById('preloader');
-            preloader.classList.add('hidden');
-        });
+            let loaded = false;
+            let timeoutPassed = false;
+
+            // Quando a página carregar completamente
+            window.addEventListener('load', function() {
+                loaded = true;
+                if (timeoutPassed) {
+                    preloader.classList.add('hidden');
+                }
+            });
+
+            // Após 8 segundos, libera
+            setTimeout(function() {
+                timeoutPassed = true;
+                if (loaded) {
+                    preloader.classList.add('hidden');
+                }
+            }, 8000); // 8 segundos
+        })();
 
         // Mobile menu
         const hamburger = document.getElementById('hamburger');
