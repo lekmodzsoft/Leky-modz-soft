@@ -58,15 +58,25 @@
             visibility: hidden;
             pointer-events: none;
         }
-        .preloader-video {
-            position: absolute;
-            top: 0;
-            left: 0;
+
+        .preloader-video-container {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.4) blur(2px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
         }
+
+        .preloader-video {
+            width: 70%;
+            max-width: 800px;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 0 40px var(--primary), 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid var(--primary);
+        }
+
         .preloader-content {
             position: relative;
             z-index: 2;
@@ -75,6 +85,7 @@
             max-width: 600px;
             padding: 20px;
         }
+
         .preloader-content h2 {
             font-family: 'Orbitron', sans-serif;
             font-size: 3rem;
@@ -86,6 +97,7 @@
             margin-bottom: 1rem;
             text-shadow: 0 0 30px var(--primary);
         }
+
         .preloader-content p {
             font-size: 1.5rem;
             font-weight: 300;
@@ -97,14 +109,17 @@
             animation: typing 3s steps(40) forwards, blink 0.75s step-end infinite;
             margin: 0 auto;
         }
+
         @keyframes typing {
             from { width: 0; }
             to { width: 100%; }
         }
+
         @keyframes blink {
             from, to { border-color: transparent; }
             50% { border-color: var(--primary); }
         }
+
         .loader-spinner {
             margin-top: 2rem;
             width: 60px;
@@ -115,6 +130,7 @@
             animation: spin 1s linear infinite;
             box-shadow: 0 0 30px var(--primary);
         }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -1064,6 +1080,9 @@
             .contact-cyber h3 { font-size: 2.2rem; }
             .phone-giant { font-size: 2rem; }
             .float-wa { width: 55px; height: 55px; font-size: 2rem; bottom: 20px; right: 20px; }
+            .preloader-video {
+                width: 90%;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1071,15 +1090,19 @@
             .hero-stats { flex-direction: column; gap: 0.5rem; }
             .section-title { font-size: 2rem; }
             .footer-content { flex-direction: column; }
+            .preloader-content h2 { font-size: 2rem; }
+            .preloader-content p { font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
     <!-- PRELOADER -->
     <div id="preloader">
-        <video class="preloader-video" autoplay muted loop playsinline>
-            <source src="1770264063242.mp4" type="video/mp4">
-        </video>
+        <div class="preloader-video-container">
+            <video class="preloader-video" autoplay muted loop playsinline>
+                <source src="1770264063242.mp4" type="video/mp4">
+            </video>
+        </div>
         <div class="preloader-content">
             <h2>Leky Modz Soft</h2>
             <p>Aguarde, estamos carregando todas as informações...</p>
