@@ -2,13 +2,13 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leky Modz Soft • Inovação Digital</title>
-    <!-- Fonts e Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Leky Modz Soft • Engenharia Digital</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* RESET E VARIÁVEIS */
         * {
             margin: 0;
             padding: 0;
@@ -16,41 +16,51 @@
         }
 
         :root {
-            --primary: #4facfe;
-            --primary-dark: #0088cc;
-            --secondary: #00f2fe;
-            --accent: #9d4eff;
-            --dark: #0a0e1a;
-            --dark-light: #151e2f;
-            --glass: rgba(20, 30, 50, 0.6);
-            --glass-border: rgba(79, 172, 254, 0.2);
+            --bg: #0a0c12;
+            --bg-light: #121520;
+            --primary: #00f0ff;
+            --primary-dark: #0099cc;
+            --secondary: #ff2a6d;
+            --accent: #7000ff;
+            --neon: #00ff9d;
             --text: #e0e0e0;
-            --text-light: #b0b8d0;
-            --gradient-1: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --gradient-2: linear-gradient(135deg, #9d4eff 0%, #4facfe 100%);
-            --shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
-            --shadow-glow: 0 0 30px rgba(79, 172, 254, 0.3);
+            --text-dim: #a0a8c0;
+            --glass: rgba(16, 20, 30, 0.7);
+            --glass-border: rgba(0, 240, 255, 0.2);
+            --shadow-neon: 0 0 20px rgba(0, 240, 255, 0.3);
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--dark);
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg);
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* BACKGROUND ANIMADO (CIRCUITOS) */
-        #circuit-bg {
+        /* PARTICLE CANVAS BACKGROUND */
+        #particle-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.15;
             pointer-events: none;
+            opacity: 0.4;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-light);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+            box-shadow: inset 0 0 6px rgba(0,240,255,0.5);
         }
 
         /* HEADER */
@@ -59,160 +69,282 @@
             top: 0;
             left: 0;
             width: 100%;
+            padding: 1rem 5%;
+            background: rgba(6, 8, 14, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 0 30px rgba(0,240,255,0.2);
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 5%;
-            background: rgba(10, 15, 25, 0.7);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
-            transition: 0.4s;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .logo-wrapper {
+        .logo {
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
-        .logo-wrapper img {
-            height: 60px;
+        .logo img {
+            height: 55px;
             width: auto;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(79, 172, 254, 0.6);
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0,240,255,0.6);
             transition: 0.3s;
         }
 
-        .logo-wrapper img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 50px var(--primary);
+        .logo img:hover {
+            transform: scale(1.05) rotate(2deg);
+            filter: brightness(1.2);
         }
 
-        .logo-wrapper h1 {
-            font-size: 2rem;
+        .logo h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
             font-weight: 800;
-            background: var(--gradient-1);
+            background: linear-gradient(45deg, var(--primary), var(--neon));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 2px;
         }
 
-        nav ul {
+        /* DESKTOP MENU */
+        .nav-menu {
             display: flex;
             gap: 2.5rem;
-            list-style: none;
         }
 
-        nav ul li a {
+        .nav-menu a {
             color: #fff;
             text-decoration: none;
             font-weight: 500;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            padding: 0.5rem 0;
             position: relative;
-            padding-bottom: 5px;
             transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        nav ul li a::after {
+        .nav-menu a::before {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--gradient-1);
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
             transition: 0.3s;
         }
 
-        nav ul li a:hover::after {
+        .nav-menu a:hover::before {
             width: 100%;
         }
 
-        /* MAIN */
+        .nav-menu a:hover {
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        /* ===== MENU HAMBURGER REFINADO ===== */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+            width: 40px;
+            height: 40px;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .hamburger:hover {
+            background: rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--primary);
+            margin: 3px 0;
+            transition: 0.3s;
+            box-shadow: 0 0 8px var(--primary);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* MOBILE MENU */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 400px;
+            height: 100vh;
+            background: rgba(10, 12, 22, 0.98);
+            backdrop-filter: blur(20px);
+            border-left: 2px solid var(--primary);
+            padding: 120px 30px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 999;
+            box-shadow: -10px 0 50px rgba(0,240,255,0.2);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.8rem;
+            font-weight: 600;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(0,240,255,0.2);
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .mobile-menu a i {
+            color: var(--primary);
+            font-size: 1.5rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--primary);
+            padding-left: 2rem;
+            border-bottom-color: var(--primary);
+            background: linear-gradient(90deg, transparent, rgba(0,240,255,0.1));
+        }
+
+        .mobile-menu .wa-link {
+            background: rgba(37, 211, 102, 0.1);
+            border: 1px solid #25D366;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .mobile-menu .wa-link i {
+            color: #25D366;
+        }
+
+        /* MAIN CONTENT */
         main {
             margin-top: 100px;
             padding: 0 5% 50px;
             max-width: 1400px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
         }
 
         /* HERO SECTION */
         .hero {
+            min-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            min-height: 85vh;
-            gap: 4rem;
+            gap: 3rem;
             position: relative;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
         }
 
         .hero-content {
             flex: 1;
-            animation: fadeInUp 1s ease;
+            animation: fadeIn 1s ease;
         }
 
-        .hero-content .badge {
+        .hero-badge {
             display: inline-block;
-            background: rgba(79, 172, 254, 0.15);
+            background: rgba(0,240,255,0.1);
             border: 1px solid var(--primary);
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
+            padding: 0.3rem 1.2rem;
+            border-radius: 30px;
             font-size: 0.9rem;
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             color: var(--primary);
             margin-bottom: 2rem;
-            backdrop-filter: blur(5px);
+            text-transform: uppercase;
+            box-shadow: 0 0 15px var(--primary);
         }
 
         .hero-content h2 {
+            font-family: 'Orbitron', sans-serif;
             font-size: 4.2rem;
-            font-weight: 800;
+            font-weight: 900;
             line-height: 1.1;
             margin-bottom: 1.5rem;
-            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
         }
 
-        .hero-content h2 span {
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .glitch-text {
             position: relative;
+            color: #fff;
+            text-shadow: 0.05em 0 0 var(--secondary), -0.05em -0.025em 0 var(--primary);
+            animation: glitch 725ms infinite;
         }
 
-        .hero-content h2 span::before {
-            content: '';
+        .glitch-text span {
             position: absolute;
-            width: 100%;
-            height: 30%;
-            bottom: 5px;
+            top: 0;
             left: 0;
-            background: rgba(79, 172, 254, 0.2);
-            z-index: -1;
-            filter: blur(8px);
         }
 
         .hero-content p {
-            font-size: 1.3rem;
-            color: var(--text-light);
-            margin-bottom: 2.5rem;
+            font-size: 1.4rem;
+            color: var(--text-dim);
             max-width: 600px;
+            margin-bottom: 2.5rem;
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
         }
 
-        .hero-buttons {
+        .hero-actions {
             display: flex;
             gap: 1.5rem;
             flex-wrap: wrap;
         }
 
-        .btn-whatsapp {
+        .btn-primary {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            background: #25D366;
+            gap: 10px;
+            background: transparent;
+            border: 2px solid var(--primary);
             color: #fff;
             padding: 1rem 2.5rem;
             border-radius: 50px;
@@ -220,9 +352,48 @@
             font-weight: 600;
             text-decoration: none;
             transition: 0.3s;
-            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,240,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 30px var(--primary);
+            border-color: transparent;
+        }
+
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #25D366;
             border: none;
-            cursor: pointer;
+            color: #fff;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(37,211,102,0.3);
             position: relative;
             overflow: hidden;
         }
@@ -243,47 +414,47 @@
         }
 
         .btn-whatsapp:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 40px rgba(37, 211, 102, 0.5);
+            transform: scale(1.05);
+            background: #128C7E;
+            box-shadow: 0 15px 30px rgba(18,140,126,0.5);
         }
 
-        .btn-outline {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: #fff;
-            padding: 1rem 2.2rem;
-            border-radius: 50px;
+        .hero-stats {
+            margin-top: 2rem;
+            display: flex;
+            gap: 2rem;
+            color: var(--text-dim);
+        }
+
+        .hero-stats span {
             font-size: 1.2rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: 0.3s;
         }
 
-        .btn-outline:hover {
-            background: var(--primary);
-            box-shadow: 0 0 30px var(--primary);
+        .hero-stats i {
+            color: var(--primary);
+            margin-right: 8px;
         }
 
         .hero-image {
             flex: 1;
             position: relative;
-            animation: float 6s ease-in-out infinite;
+            display: flex;
+            justify-content: center;
         }
 
         .hero-image img {
             width: 100%;
             max-width: 500px;
-            border-radius: 30px;
-            box-shadow: var(--shadow), var(--shadow-glow);
-            transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);
+            border-radius: 20px;
+            box-shadow: 0 30px 40px -20px #000, 0 0 50px var(--primary);
+            transform: perspective(1000px) rotateY(-15deg) rotateX(5deg);
             transition: 0.5s;
+            filter: brightness(0.9) contrast(1.1);
         }
 
         .hero-image img:hover {
             transform: perspective(1000px) rotateY(-5deg) rotateX(2deg) scale(1.02);
+            filter: brightness(1);
         }
 
         .hero-image::after {
@@ -293,27 +464,61 @@
             right: -10%;
             width: 300px;
             height: 300px;
-            background: radial-gradient(circle, rgba(79,172,254,0.3) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(0,240,255,0.3) 0%, transparent 70%);
             z-index: -1;
         }
 
-        /* SEÇÃO SERVIÇOS */
+        /* TECH ICONS RIBBON */
+        .tech-ribbon {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin: 5rem 0;
+            padding: 2rem;
+            background: rgba(0,0,0,0.3);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .tech-ribbon i {
+            font-size: 3rem;
+            color: var(--text-dim);
+            transition: 0.3s;
+            filter: grayscale(1);
+        }
+
+        .tech-ribbon i:hover {
+            color: var(--primary);
+            filter: grayscale(0);
+            transform: scale(1.2);
+            text-shadow: 0 0 20px var(--primary);
+        }
+
+        /* SECTION TITLES */
         .section-title {
             text-align: center;
+            font-family: 'Orbitron', sans-serif;
             font-size: 3rem;
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 1rem;
-            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .section-subtitle {
             text-align: center;
-            color: var(--text-light);
+            color: var(--text-dim);
             max-width: 700px;
             margin: 0 auto 4rem;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            border-bottom: 1px dashed var(--primary);
+            padding-bottom: 20px;
         }
 
+        /* SERVICES GRID */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -323,10 +528,10 @@
 
         .service-card {
             background: var(--glass);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
             padding: 2.5rem 2rem;
-            border-radius: 30px;
+            border-radius: 20px;
             text-align: center;
             transition: 0.4s;
             position: relative;
@@ -337,28 +542,41 @@
         .service-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-2);
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+            z-index: -2;
+            filter: blur(10px);
             opacity: 0;
-            z-index: -1;
             transition: 0.4s;
         }
 
-        .service-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            border-color: transparent;
+        .service-card:hover::before {
+            opacity: 1;
         }
 
-        .service-card:hover::before {
-            opacity: 0.1;
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-light);
+            z-index: -1;
+            border-radius: 18px;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: transparent;
         }
 
         .service-card i {
             font-size: 3.5rem;
-            background: var(--gradient-1);
+            background: linear-gradient(45deg, var(--primary), var(--neon));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 1.5rem;
@@ -368,169 +586,262 @@
             font-size: 1.8rem;
             margin-bottom: 1rem;
             font-weight: 700;
+            color: #fff;
         }
 
         .service-card p {
-            color: var(--text-light);
+            color: var(--text-dim);
         }
 
-        /* SEÇÃO SOBRE */
-        .about {
-            display: flex;
-            gap: 4rem;
-            margin: 6rem 0;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .about-text {
-            flex: 1;
-        }
-
-        .about-text h3 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            color: var(--text-light);
-        }
-
-        .stats-grid {
-            flex: 1;
+        /* CASES SECTION */
+        .cases-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            margin: 3rem 0;
         }
 
-        .stat-item {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--glass-border);
-            padding: 2rem 1rem;
+        .case-item {
+            position: relative;
             border-radius: 20px;
-            text-align: center;
-            backdrop-filter: blur(8px);
-            transition: 0.3s;
-        }
-
-        .stat-item:hover {
-            border-color: var(--primary);
-            box-shadow: 0 0 30px rgba(79,172,254,0.2);
-        }
-
-        .stat-item .number {
-            font-size: 3rem;
-            font-weight: 800;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1;
-        }
-
-        .stat-item .label {
-            color: var(--text-light);
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* SEÇÃO CONTATO */
-        .contact-premium {
-            background: var(--glass);
-            backdrop-filter: blur(16px);
+            overflow: hidden;
+            height: 250px;
             border: 1px solid var(--glass-border);
-            border-radius: 50px;
+            transition: 0.4s;
+        }
+
+        .case-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.4s;
+            filter: grayscale(0.6) brightness(0.7);
+        }
+
+        .case-item:hover img {
+            transform: scale(1.1);
+            filter: grayscale(0) brightness(1);
+        }
+
+        .case-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(0deg, rgba(0,0,0,0.8), transparent);
+            padding: 20px;
+            transform: translateY(100%);
+            transition: 0.4s;
+        }
+
+        .case-item:hover .case-overlay {
+            transform: translateY(0);
+        }
+
+        .case-overlay h4 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .case-overlay p {
+            color: #fff;
+        }
+
+        /* TESTIMONIALS */
+        .testimonials {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 4rem 0;
+        }
+
+        .testimonial-card {
+            flex: 1;
+            min-width: 280px;
+            background: rgba(20,25,40,0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .testimonial-card i {
+            color: var(--primary);
+            font-size: 2rem;
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #ccc;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+        }
+
+        .author-info h5 {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .author-info span {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* CONTACT PREMIUM */
+        .contact-cyber {
+            background: rgba(0,0,0,0.5);
+            border: 2px solid var(--primary);
+            border-radius: 60px;
             padding: 4rem 3rem;
             margin: 5rem 0;
             text-align: center;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 0 50px var(--primary);
         }
 
-        .contact-premium::before {
+        .contact-cyber::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -20%;
             width: 140%;
             height: 200%;
-            background: radial-gradient(circle, rgba(79,172,254,0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
+            background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(0,240,255,0.02) 20px, rgba(0,240,255,0.02) 40px);
+            animation: scan 10s linear infinite;
         }
 
-        .contact-premium h3 {
-            font-size: 3rem;
-            font-weight: 700;
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
+        .contact-cyber h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
             margin-bottom: 1rem;
-            position: relative;
+            color: #fff;
+            text-shadow: 0 0 20px var(--primary);
         }
 
-        .contact-premium p {
-            font-size: 1.3rem;
-            color: var(--text-light);
+        .contact-cyber p {
+            font-size: 1.4rem;
+            color: var(--text-dim);
             max-width: 700px;
-            margin: 0 auto 2.5rem;
-            position: relative;
+            margin: 0 auto 2rem;
         }
 
-        .contact-premium .btn-whatsapp {
-            font-size: 1.8rem;
-            padding: 1.5rem 4rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .phone-big {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: var(--gradient-1);
+        .phone-giant {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--primary), #fff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 2px;
-            position: relative;
+            letter-spacing: 4px;
+            margin: 1.5rem 0;
         }
 
         /* FOOTER */
         footer {
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(10px);
-            border-top: 1px solid var(--glass-border);
-            padding: 2rem 5%;
+            border-top: 2px solid var(--primary);
+            padding: 3rem 5% 2rem;
             margin-top: 4rem;
-            text-align: center;
-            color: var(--text-light);
         }
 
-        .footer-links {
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1rem 0;
+            justify-content: space-between;
             flex-wrap: wrap;
+            gap: 2rem;
         }
 
-        .footer-links a {
-            color: #fff;
+        .footer-col {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-col h4 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .footer-col a {
+            color: var(--text-dim);
             text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
             transition: 0.3s;
         }
 
-        .footer-links a:hover {
+        .footer-col a:hover {
             color: var(--primary);
+            padding-left: 10px;
         }
 
-        /* BOTÃO WHATSAPP FLUTUANTE */
-        .floating-wa {
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            color: #fff;
+            background: rgba(0,240,255,0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--primary);
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            color: #000;
+            transform: scale(1.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-dim);
+        }
+
+        /* FLOATING WHATSAPP - SEM SUBLINHADO */
+        .float-wa {
             position: fixed;
             bottom: 30px;
             right: 30px;
             background: #25D366;
-            color: #fff;
             width: 70px;
             height: 70px;
             border-radius: 50%;
@@ -538,94 +849,120 @@
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
-            box-shadow: 0 10px 30px rgba(37,211,102,0.4);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(37,211,102,0.5);
             z-index: 1000;
             transition: 0.3s;
-            animation: pulse-wa 2s infinite;
+            animation: pulse 2s infinite;
+            border: 2px solid #fff;
+            text-decoration: none; /* Remove sublinhado */
         }
 
-        .floating-wa:hover {
+        .float-wa:hover {
             transform: scale(1.1);
             background: #128C7E;
         }
 
-        @keyframes pulse-wa {
+        @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.7); }
             70% { box-shadow: 0 0 0 20px rgba(37,211,102,0); }
             100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
         }
 
-        /* ANIMAÇÕES */
-        @keyframes fadeInUp {
+        /* ANIMATIONS */
+        @keyframes fadeIn {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 var(--secondary), -0.05em -0.025em 0 var(--primary); }
+            25% { text-shadow: -0.05em -0.025em 0 var(--secondary), 0.025em 0.05em 0 var(--primary); }
+            50% { text-shadow: 0.025em 0.05em 0 var(--secondary), 0.05em 0 0 var(--primary); }
+            75% { text-shadow: -0.025em 0 0 var(--secondary), -0.025em -0.05em 0 var(--primary); }
+            100% { text-shadow: 0.05em 0 0 var(--secondary), -0.05em -0.025em 0 var(--primary); }
         }
 
         /* RESPONSIVIDADE */
         @media (max-width: 992px) {
             .hero { flex-direction: column; text-align: center; }
-            .hero-content h2 { font-size: 3rem; }
-            .hero-buttons { justify-content: center; }
-            .about { flex-direction: column; }
-            .contact-premium h3 { font-size: 2.2rem; }
-            .phone-big { font-size: 1.8rem; }
-            nav ul { gap: 1.2rem; }
+            .hero-content p { border-left: none; padding-left: 0; }
+            .hero-actions { justify-content: center; }
+            .hero-stats { justify-content: center; }
+            .section-title { font-size: 2.5rem; }
         }
 
         @media (max-width: 768px) {
-            header { flex-direction: column; gap: 1rem; }
-            .hero-content h2 { font-size: 2.5rem; }
-            .btn-whatsapp { font-size: 1.1rem; padding: 0.8rem 1.8rem; }
-            .floating-wa { width: 55px; height: 55px; font-size: 2rem; bottom: 20px; right: 20px; }
+            .nav-menu { display: none; }
+            .hamburger { display: flex; }
+            .logo img { height: 45px; }
+            .logo h1 { font-size: 1.4rem; }
+            header { padding: 0.8rem 4%; }
+            .hero-content h2 { font-size: 2.8rem; }
+            .btn-primary, .btn-whatsapp { font-size: 1.1rem; padding: 0.8rem 1.8rem; }
+            .tech-ribbon { gap: 1.5rem; }
+            .tech-ribbon i { font-size: 2rem; }
+            .contact-cyber h3 { font-size: 2.2rem; }
+            .phone-giant { font-size: 2rem; }
+            .float-wa { width: 55px; height: 55px; font-size: 2rem; bottom: 20px; right: 20px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h2 { font-size: 2.2rem; }
+            .hero-stats { flex-direction: column; gap: 0.5rem; }
+            .section-title { font-size: 2rem; }
+            .footer-content { flex-direction: column; }
         }
     </style>
 </head>
 <body>
-    <!-- Canvas para background de circuitos (opcional) -->
-    <canvas id="circuit-bg"></canvas>
+    <canvas id="particle-canvas"></canvas>
 
     <header>
-        <div class="logo-wrapper">
-            <!-- Substitua '1000026044.png' pelo caminho correto da sua logo -->
-            <img src="1000026044.png" alt="Leky Modz Soft">
-            <h1>Leky Modz Soft</h1>
+        <div class="header-container">
+            <div class="logo">
+                <img src="1000026044.png" alt="Leky Modz Soft">
+                <h1>LEKY MODZ</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="#home">Home</a>
+                <a href="#servicos">Serviços</a>
+                <a href="#cases">Cases</a>
+                <a href="#sobre">Sobre</a>
+                <a href="#contato">Contato</a>
+            </nav>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#servicos">Serviços</a></li>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#contato">Contato</a></li>
-            </ul>
-        </nav>
     </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home" onclick="closeMenu()"><i class="fas fa-home"></i> Home</a>
+        <a href="#servicos" onclick="closeMenu()"><i class="fas fa-cog"></i> Serviços</a>
+        <a href="#cases" onclick="closeMenu()"><i class="fas fa-briefcase"></i> Cases</a>
+        <a href="#sobre" onclick="closeMenu()"><i class="fas fa-users"></i> Sobre</a>
+        <a href="#contato" onclick="closeMenu()"><i class="fas fa-envelope"></i> Contato</a>
+        <a href="https://wa.me/5534997973878" target="_blank" class="wa-link" onclick="closeMenu()"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </div>
 
     <main>
         <!-- Hero -->
         <section id="home" class="hero">
             <div class="hero-content">
-                <span class="badge"><i class="fas fa-crown"></i> Excelência em Tecnologia</span>
-                <h2>Inovação <span>digital</span> que<br>transforma negócios</h2>
-                <p>Na Leky Modz Soft, desenvolvemos soluções sob medida que unem criatividade, performance e segurança. Seu próximo grande projeto começa aqui.</p>
-                <div class="hero-buttons">
-                    <a href="https://wa.me/5534997973878?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Leky%20Modz%20Soft." class="btn-whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Fale conosco
-                    </a>
-                    <a href="#servicos" class="btn-outline">Conheça soluções <i class="fas fa-arrow-right"></i></a>
+                <div class="hero-badge"><i class="fas fa-bolt"></i> NEXT-GEN TECH</div>
+                <h2 class="glitch-text">ENGENHARIA<br>DIGITAL</h2>
+                <p>Soluções de software de alto desempenho para empresas que buscam inovação e vantagem competitiva. Desenvolvimento sob medida com as mais avançadas tecnologias.</p>
+                <div class="hero-actions">
+                    <a href="https://wa.me/5534997973878?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Leky%20Modz%20Soft." class="btn-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> Fale agora</a>
+                    <a href="#servicos" class="btn-primary">Conheça <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <div style="margin-top: 2rem; display: flex; gap: 2rem; color: var(--text-light);">
-                    <span><i class="fas fa-check-circle" style="color: var(--primary);"></i> +50 projetos</span>
-                    <span><i class="fas fa-check-circle" style="color: var(--primary);"></i> 5+ anos</span>
+                <div class="hero-stats">
+                    <span><i class="fas fa-rocket"></i> 800+ projetos</span>
+                    <span><i class="fas fa-users"></i> 670+ clientes</span>
+                    <span><i class="fas fa-clock"></i> 4+ anos</span>
                 </div>
             </div>
             <div class="hero-image">
@@ -633,149 +970,258 @@
             </div>
         </section>
 
+        <!-- Tech Ribbon -->
+        <div class="tech-ribbon">
+            <i class="fab fa-react"></i>
+            <i class="fab fa-node-js"></i>
+            <i class="fab fa-python"></i>
+            <i class="fab fa-java"></i>
+            <i class="fab fa-aws"></i>
+            <i class="fas fa-cloud"></i>
+            <i class="fas fa-database"></i>
+        </div>
+
         <!-- Serviços -->
         <section id="servicos">
-            <h2 class="section-title">Nossas especialidades</h2>
-            <p class="section-subtitle">Da concepção à implementação, oferecemos soluções completas em desenvolvimento de software e consultoria.</p>
+            <h2 class="section-title">Serviços Especializados</h2>
+            <p class="section-subtitle">Da arquitetura à implementação, entregamos soluções robustas e escaláveis.</p>
             <div class="services-grid">
                 <div class="service-card">
                     <i class="fas fa-laptop-code"></i>
                     <h3>Dev. Sob Medida</h3>
-                    <p>Sistemas web, desktop e mobile personalizados para suas necessidades.</p>
+                    <p>Sistemas corporativos, APIs, microserviços e integrações complexas.</p>
                 </div>
                 <div class="service-card">
                     <i class="fas fa-mobile-alt"></i>
-                    <h3>Aplicativos</h3>
-                    <p>Apps nativos e híbridos com foco em UX e alta performance.</p>
+                    <h3>Aplicativos Mobile</h3>
+                    <p>Apps nativos (iOS/Android) e híbridos com performance nativa.</p>
                 </div>
                 <div class="service-card">
                     <i class="fas fa-cloud-upload-alt"></i>
-                    <h3>Cloud & Infra</h3>
-                    <p>Arquitetura em nuvem, escalabilidade e monitoramento 24/7.</p>
+                    <h3>Cloud & DevOps</h3>
+                    <p>Infraestrutura em nuvem, CI/CD, monitoramento e automação.</p>
                 </div>
                 <div class="service-card">
                     <i class="fas fa-robot"></i>
-                    <h3>Automação</h3>
-                    <p>Bots e automações para otimizar processos repetitivos.</p>
+                    <h3>IA & Automação</h3>
+                    <p>Bots inteligentes, machine learning e otimização de processos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cases -->
+        <section id="cases">
+            <h2 class="section-title">Cases de Sucesso</h2>
+            <p class="section-subtitle">Projetos que transformaram negócios reais.</p>
+            <div class="cases-grid">
+                <div class="case-item">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Case 1">
+                    <div class="case-overlay">
+                        <h4>Fintech App</h4>
+                        <p>Aplicativo de gestão financeira com mais de 50k usuários.</p>
+                    </div>
+                </div>
+                <div class="case-item">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Case 2">
+                    <div class="case-overlay">
+                        <h4>E-commerce AI</h4>
+                        <p>Sistema de recomendação com machine learning.</p>
+                    </div>
+                </div>
+                <div class="case-item">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Case 3">
+                    <div class="case-overlay">
+                        <h4>IoT Dashboard</h4>
+                        <p>Plataforma de monitoramento para indústria 4.0.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Sobre -->
-        <section id="sobre" class="about">
-            <div class="about-text">
-                <h3>Sobre a Leky Modz Soft</h3>
-                <p>Somos uma equipe multidisciplinar de engenheiros de software, designers e especialistas em inovação. Nossa missão é criar soluções tecnológicas que realmente façam a diferença no dia a dia das empresas.</p>
-                <p>Com mais de 5 anos de mercado, acumulamos cases de sucesso em diversos segmentos, sempre prezando pela qualidade, transparência e relacionamento duradouro com nossos clientes.</p>
-                <p>Acreditamos que a tecnologia é uma ferramenta poderosa para simplificar processos e abrir novas possibilidades. Por isso, cada projeto é tratado com dedicação exclusiva.</p>
+        <section id="sobre" style="display: flex; gap: 3rem; flex-wrap: wrap; align-items: center; margin: 5rem 0;">
+            <div style="flex: 1;">
+                <h2 class="section-title" style="text-align: left;">Quem somos</h2>
+                <p style="font-size: 1.2rem; color: var(--text-dim); margin-bottom: 1rem;">A Leky Modz Soft nasceu da paixão por tecnologia e inovação. Somos um time de engenheiros, designers e estrategistas focados em criar soluções digitais que realmente fazem a diferença.</p>
+                <p style="font-size: 1.2rem; color: var(--text-dim);">Com mais de 4 anos de experiência, já ajudamos centenas de empresas a alcançarem seus objetivos através da tecnologia. Nosso diferencial está na combinação de criatividade, conhecimento técnico e comprometimento com resultados.</p>
             </div>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="number">+50</div>
-                    <div class="label">Projetos</div>
+            <div style="flex: 1; display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;">
+                <div style="background: rgba(0,240,255,0.1); padding: 2rem; border-radius: 20px; border: 1px solid var(--primary); text-align: center;">
+                    <div style="font-size: 3rem; color: var(--primary);">800+</div>
+                    <div>Projetos</div>
                 </div>
-                <div class="stat-item">
-                    <div class="number">+30</div>
-                    <div class="label">Clientes</div>
-                </div>
-                <div class="stat-item">
-                    <div class="number">5+</div>
-                    <div class="label">Anos</div>
-                </div>
-                <div class="stat-item">
-                    <div class="number">98%</div>
-                    <div class="label">Satisfação</div>
+                <div style="background: rgba(0,240,255,0.1); padding: 2rem; border-radius: 20px; border: 1px solid var(--primary); text-align: center;">
+                    <div style="font-size: 3rem; color: var(--primary);">670+</div>
+                    <div>Clientes</div>
                 </div>
             </div>
         </section>
 
-        <!-- Contato Premium -->
-        <section id="contato" class="contact-premium">
-            <h3>Vamos construir algo incrível?</h3>
-            <p>Entre em contato agora mesmo e converse com nossa equipe. Respondemos em poucos minutos.</p>
-            <a href="https://wa.me/5534997973878?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." class="btn-whatsapp" target="_blank">
-                <i class="fab fa-whatsapp"></i> Iniciar conversa
-            </a>
-            <div class="phone-big">
+        <!-- Depoimentos -->
+        <section>
+            <h2 class="section-title">O que dizem</h2>
+            <p class="section-subtitle">Depoimentos de quem confiou em nosso trabalho.</p>
+            <div class="testimonials">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>A Leky Modz Soft entregou um sistema completo para nossa gestão de estoque. Profissionalismo e qualidade acima da média.</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="author">
+                        <div class="author-info">
+                            <h5>Carlos Silva</h5>
+                            <span>CEO, TechLog</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>O aplicativo desenvolvido superou nossas expectativas. Equipe muito atenciosa e entregou antes do prazo.</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="author">
+                        <div class="author-info">
+                            <h5>Ana Paula</h5>
+                            <span>Marketing, FashionStore</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>Suporte técnico excepcional e soluções criativas. Recomendo fortemente!</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="author">
+                        <div class="author-info">
+                            <h5>Marcos Andrade</h5>
+                            <span>CTO, InovaTech</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contato Cyber -->
+        <section id="contato" class="contact-cyber">
+            <h3>Vamos construir o futuro?</h3>
+            <p>Entre em contato agora e descubra como podemos transformar sua ideia em realidade.</p>
+            <a href="https://wa.me/5534997973878?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." class="btn-whatsapp" style="font-size: 1.8rem; padding: 1.5rem 4rem;" target="_blank"><i class="fab fa-whatsapp"></i> Iniciar conversa</a>
+            <div class="phone-giant">
                 <i class="fab fa-whatsapp"></i> 34 99797-3878
             </div>
         </section>
     </main>
 
     <footer>
-        <p>© 2026 Leky Modz Soft. Todos os direitos reservados.</p>
-        <div class="footer-links">
-            <a href="#home">Home</a>
-            <a href="#servicos">Serviços</a>
-            <a href="#sobre">Sobre</a>
-            <a href="#contato">Contato</a>
-            <a href="https://wa.me/5534997973878">WhatsApp</a>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Leky Modz Soft</h4>
+                <p>Inovação e tecnologia para o seu negócio.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Navegação</h4>
+                <a href="#home">Home</a>
+                <a href="#servicos">Serviços</a>
+                <a href="#cases">Cases</a>
+                <a href="#sobre">Sobre</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contato</h4>
+                <a href="https://wa.me/5534997973878"><i class="fab fa-whatsapp"></i> 34 99797-3878</a>
+                <a href="mailto:contato@lekymodz.soft"><i class="far fa-envelope"></i> contato@lekymodz.soft</a>
+            </div>
         </div>
-        <p>Desenvolvido com <i class="fas fa-heart" style="color: #4facfe;"></i> pela equipe Leky Modz Soft</p>
+        <div class="footer-bottom">
+            <p>© 2026 Leky Modz Soft. Todos os direitos reservados.</p>
+        </div>
     </footer>
 
-    <!-- Botão flutuante WhatsApp -->
-    <a href="https://wa.me/5534997973878?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20informações." class="floating-wa" target="_blank">
+    <a href="https://wa.me/5534997973878?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20informações." class="float-wa" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Pequeno script para efeito de circuitos (opcional) -->
     <script>
-        // Canvas de fundo estilo circuitos
-        const canvas = document.getElementById('circuit-bg');
+        // Mobile menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    closeMenu();
+                }
+            });
+        });
+
+        // Particle background
+        const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
+        let particles = [];
 
         function resize() {
             width = window.innerWidth;
             height = window.innerHeight;
             canvas.width = width;
             canvas.height = height;
+            initParticles();
         }
 
-        function drawCircuits() {
-            if (!ctx) return;
-            ctx.clearRect(0, 0, width, height);
-            ctx.strokeStyle = '#4facfe';
-            ctx.lineWidth = 0.8;
-            ctx.globalAlpha = 0.2;
-
-            for (let i = 0; i < 30; i++) {
-                let startX = Math.random() * width;
-                let startY = Math.random() * height;
-                let points = [];
-                for (let j = 0; j < 5; j++) {
-                    points.push({
-                        x: startX + (Math.random() - 0.5) * 200,
-                        y: startY + (Math.random() - 0.5) * 200
-                    });
-                }
-                ctx.beginPath();
-                ctx.moveTo(points[0].x, points[0].y);
-                for (let k = 1; k < points.length; k++) {
-                    ctx.lineTo(points[k].x, points[k].y);
-                }
-                ctx.stroke();
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 80; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 2 + 1,
+                    color: `rgba(0, 240, 255, ${Math.random() * 0.5})`
+                });
             }
-            requestAnimationFrame(drawCircuits);
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+                ctx.beginPath();
+                ctx.fillStyle = p.color;
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(draw);
         }
 
         window.addEventListener('resize', resize);
         resize();
-        drawCircuits();
+        draw();
 
-        // Smooth scroll para links internos
-        document.querySelectorAll('nav a, .btn-outline').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href && href.startsWith('#')) {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-            });
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target) && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
         });
     </script>
 </body>
